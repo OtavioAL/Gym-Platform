@@ -1,12 +1,14 @@
 {
-	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"outDir": "dist"
-	},
-	"include": ["src"],
-	"references": [
-		{
-			"path": "../../packages/shared"
-		}
-	]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../../packages/shared"
+    }
+  ]
 }
