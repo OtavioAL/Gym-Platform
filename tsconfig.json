@@ -12,6 +12,8 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@shared/*": ["packages/shared/src/*"]
     }
