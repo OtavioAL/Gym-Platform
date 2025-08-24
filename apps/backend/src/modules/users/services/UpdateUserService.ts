@@ -2,8 +2,8 @@ import { UpdateUserInput } from '@shared/validations/update-user';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import bcrypt from 'bcryptjs';
 import { UserRole, UserStatus } from '../enums';
-import { AppError } from 'apps/backend/src/shared/errors/AppError';
-import { UNAUTHORIZED, USER_NOT_FOUND } from 'apps/backend/src/shared/errors/error.messages';
+import { AppError } from '../../../shared/errors/AppError';
+import { UNAUTHORIZED, USER_NOT_FOUND } from '../../../shared/errors/error.messages';
 
 export class UpdateUserService {
   constructor(private usersRepo: IUsersRepository) {}
