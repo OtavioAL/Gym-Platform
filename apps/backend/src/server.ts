@@ -1,13 +1,11 @@
 import 'reflect-metadata';
-import express from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { errorHandler } from './shared/middlewares/errorHandler';
-import AppDataSource from './database/data-source';
-import { env } from './config/env';
 import { routes } from './shared/routes/routes';
 
-const app = express();
+const app: Express = express();
 
 app.use(cors());
 
@@ -19,6 +17,4 @@ app.use('/', routes);
 
 app.use(errorHandler);
 
-AppDataSource.initialize().then(() => {
-  app.listen(Number(env.PORT), () => console.log(`API running on http://localhost:${env.PORT}`));
-});
+export { app };
