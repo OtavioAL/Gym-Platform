@@ -1,20 +1,24 @@
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
-import { User } from '@shared/types';
+import helmet from 'helmet';
+import { errorHandler } from './shared/middlewares/errorHandler';
+import AppDataSource from './database/data-source';
+import { env } from './config/env';
+import { routes } from './shared/routes/routes';
 
 const app = express();
+
 app.use(cors());
 
-app.get('/api/health', (_req, res) => {
-  const user: User = {
-    id: '1',
-    name: 'John',
-    email: 'john@example.com',
-  };
-  res.json({ status: 'ok', user });
-});
+app.use(helmet());
 
-app.listen(4000, () => {
-  console.log('Backend running at http://localhost:4000');
+app.use(express.json());
+
+app.use('/', routes);
+
+app.use(errorHandler);
+
+AppDataSource.initialize().then(() => {
+  app.listen(Number(env.PORT), () => console.log(`API running on http://localhost:${env.PORT}`));
 });
