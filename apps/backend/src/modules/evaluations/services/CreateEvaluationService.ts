@@ -8,7 +8,7 @@ import {
   INVALID_USER_TYPE,
   STUDENT_CANNOT_REGISTER_EVALUATION,
   USER_NOT_FOUND,
-} from 'apps/backend/src/shared/errors/error.messages';
+} from '../../../shared/errors/error.messages';
 import { calculateBMI, calculateIMC } from './bmi';
 import { BmiClassificationRepository } from '../repositories/implementations/BmiClassificationRepository';
 
@@ -16,7 +16,9 @@ export class CreateEvaluationService {
   constructor(
     private evalRepo: BmiAssessmentRepository,
     private usersRepo: IUsersRepository,
+    private classificationRepo: BmiClassificationRepository,
   ) {}
+
   async execute(currentUser: { id: string; role: UserRole }, data: CreateEvalInput) {
     if (currentUser.role === UserRole.STUDENT)
       throw new AppError(STUDENT_CANNOT_REGISTER_EVALUATION, 403);
@@ -30,9 +32,7 @@ export class CreateEvaluationService {
     const bmi = calculateBMI(data.weight, data.height);
     const classification: BmiClassificationEnum = calculateIMC(bmi);
 
-    const classificationRepository = new BmiClassificationRepository();
-
-    const classificationId = await classificationRepository.findByLabel(classification);
+    const classificationEntity = await this.classificationRepo.findByLabel(classification);
 
     return this.evalRepo.create({
       evaluator: { id: currentUser.id } as any,
@@ -40,7 +40,7 @@ export class CreateEvaluationService {
       height: data.height,
       weight: data.weight,
       student,
-      classification: classificationId ?? undefined,
+      classification: classificationEntity ?? undefined,
     });
   }
 }
