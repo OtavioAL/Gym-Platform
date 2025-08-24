@@ -1,10 +1,13 @@
-import { HeightGreaterThanZeroError } from 'apps/backend/src/shared/errors/height-greater-than-zero-error';
 import { BmiClassificationEnum } from '../../users/enums';
-import { WeightGreaterThanZeroError } from 'apps/backend/src/shared/errors/weight-greater-than-zero-error';
+import { AppError } from '../../../shared/errors/AppError';
+import {
+  HEIGHT_GREATER_THAN_ZERO,
+  WEIGHT_GREATER_THAN_ZERO,
+} from '../../../shared/errors/error.messages';
 
 export function calculateBMI(weight: number, height: number): number {
-  if (height <= 0) throw new HeightGreaterThanZeroError();
-  if (weight < 0) throw new WeightGreaterThanZeroError();
+  if (height <= 0) throw new AppError(HEIGHT_GREATER_THAN_ZERO, 400);
+  if (weight < 0) throw new AppError(WEIGHT_GREATER_THAN_ZERO, 400);
   const bmi = weight / (height * height);
   return Number(bmi.toFixed(2));
 }
