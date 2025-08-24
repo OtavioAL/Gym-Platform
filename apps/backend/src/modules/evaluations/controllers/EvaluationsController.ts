@@ -7,6 +7,7 @@ import { createEvalSchema } from '@shared/validations/create-evaluations';
 import { BmiAssessmentRepository } from '../repositories/implementations/BmiAssessmentRepository';
 import { UsersRepository } from '../../users/repositories/implementations/UsersRepository';
 import { updateEvalSchema } from '@shared/validations/update-evaluations';
+import { BmiClassificationRepository } from '../repositories/implementations/BmiClassificationRepository';
 
 export class EvaluationsController {
   async create(req: Request, res: Response) {
@@ -17,6 +18,7 @@ export class EvaluationsController {
     const out = await new CreateEvaluationService(
       new BmiAssessmentRepository(),
       new UsersRepository(),
+      new BmiClassificationRepository(),
     ).execute(current, data);
 
     return res.status(201).json(out);
@@ -26,11 +28,10 @@ export class EvaluationsController {
 
     const current = (req as any).user;
 
-    const out = await new UpdateEvaluationService(new BmiAssessmentRepository()).execute(
-      req.params.id,
-      current.role,
-      input,
-    );
+    const out = await new UpdateEvaluationService(
+      new BmiAssessmentRepository(),
+      new BmiClassificationRepository(),
+    ).execute(req.params.id, current.role, input);
 
     return res.json(out);
   }
