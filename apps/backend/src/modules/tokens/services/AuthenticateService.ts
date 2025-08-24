@@ -3,10 +3,10 @@ import { AppError } from '../../../shared/errors/AppError';
 import bcrypt from 'bcryptjs';
 import { env } from '../../../config/env';
 import { UserTokensRepository } from '../repositories/implementations/UserTokensRepository';
-import { INACTIVE_USER, INVALID_CREDENTIALS } from 'apps/backend/src/shared/errors/error.messages';
+import { INACTIVE_USER, INVALID_CREDENTIALS } from '../../../shared/errors/error.messages';
 import { UserStatus } from '../../users/enums';
-import { generateRefreshToken, generateToken } from 'apps/backend/src/utils/jwt';
-import { parseTimeToMilliseconds } from 'apps/backend/src/utils/parse-time';
+import { generateRefreshToken, generateToken } from '../../../utils/jwt';
+import { parseTimeToMilliseconds } from '../../../utils/parse-time';
 
 export class AuthenticateService {
   constructor(
