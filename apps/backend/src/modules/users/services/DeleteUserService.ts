@@ -1,10 +1,7 @@
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import { AppError } from '../../../shared/errors/AppError';
 import { UserRole } from '../enums';
-import {
-  UNAUTHORIZED,
-  USER_HAS_LINKED_REVIES,
-} from 'apps/backend/src/shared/errors/error.messages';
+import { UNAUTHORIZED, USER_HAS_LINKED_REVIES } from '../../../shared/errors/error.messages';
 
 export class DeleteUserService {
   constructor(private usersRepo: IUsersRepository) {}
