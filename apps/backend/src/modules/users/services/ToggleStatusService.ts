@@ -1,7 +1,7 @@
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import { AppError } from '../../../shared/errors/AppError';
 import { UserRole, UserStatus } from '../enums';
-import { UNAUTHORIZED, USER_NOT_FOUND } from 'apps/backend/src/shared/errors/error.messages';
+import { UNAUTHORIZED, USER_NOT_FOUND } from '../../../shared/errors/error.messages';
 
 export class ToggleStatusService {
   constructor(private usersRepo: IUsersRepository) {}
