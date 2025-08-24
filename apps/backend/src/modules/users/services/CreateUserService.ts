@@ -2,8 +2,8 @@ import { CreateUserInput } from '@shared/validations/create-user';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import bcrypt from 'bcryptjs';
 import { UserRole, UserStatus } from '../enums';
-import { AppError } from 'apps/backend/src/shared/errors/AppError';
-import { UNAUTHORIZED, USER_ALREADY_EXISTS } from 'apps/backend/src/shared/errors/error.messages';
+import { AppError } from '../../../shared/errors/AppError';
+import { UNAUTHORIZED, USER_ALREADY_EXISTS } from '../../../shared/errors/error.messages';
 
 export class CreateUserService {
   constructor(private usersRepo: IUsersRepository) {}
