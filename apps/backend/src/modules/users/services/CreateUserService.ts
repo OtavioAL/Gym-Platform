@@ -18,11 +18,21 @@ export class CreateUserService {
 
     const passwordHash = await bcrypt.hash(data?.password, 10);
 
-    return this.usersRepo.create({
+    const userCreated = await this.usersRepo.create({
       ...data,
       role: UserRole[data.role.toUpperCase() as keyof typeof UserRole],
       password: passwordHash,
       status: UserStatus.ACTIVE,
     });
+
+    return {
+      name: userCreated.name,
+      email: userCreated.username,
+      role: UserRole[userCreated.role.toUpperCase() as keyof typeof UserRole],
+      status: UserStatus.ACTIVE,
+      id: userCreated.id,
+      created_at: userCreated.created_at,
+      updated_at: userCreated.updated_at,
+    };
   }
 }
