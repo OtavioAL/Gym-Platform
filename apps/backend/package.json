@@ -16,7 +16,7 @@
     "migrate:run": "pnpm typeorm migration:run -d ./src/database/data-source.ts",
     "migrate:revert": "pnpm typeorm migration:revert -d ./src/database/data-source.ts",
     "seed": "tsx src/database/seed.ts",
-    "test": "vitest run",
+    "test": "vitest --config vitest.config.ts",
     "test:watch": "vitest"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.7.1",
   "dependencies": {
+    "@types/supertest": "^6.0.3",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
@@ -32,7 +33,9 @@
     "jsonwebtoken": "^9.0.2",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
+    "supertest": "^7.1.4",
     "typeorm": "^0.3.26",
+    "vitest": "^3.2.4",
     "zod": "^4.0.17"
   },
   "devDependencies": {
