@@ -5,8 +5,8 @@ import { evaluationsRoutes } from '../../modules/evaluations/routes/evaluations.
 
 const routes: ExpressRouter = Router();
 
-routes.use('/', authRoutes);
-routes.use('/', userRoutes);
-routes.use('/', evaluationsRoutes);
+routes.use('/auth', authRoutes);
+routes.use('/users', userRoutes);
+routes.use('/evaluations', evaluationsRoutes);
 
 export { routes };
