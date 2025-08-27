@@ -31,4 +31,8 @@ evaluationsRoutes.delete('/:id', ensureAuthenticated, ensureRole(UserRole.ADMIN)
   evaluationsController.delete(req, res),
 );
 
+evaluationsRoutes.get('/me', ensureAuthenticated, ensureRole(UserRole.STUDENT), (req, res) =>
+  evaluationsController.me(req, res),
+);
+
 export { evaluationsRoutes };
