@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import { errorHandler } from './shared/middlewares/errorHandler';
 import { routes } from './shared/routes/routes';
 import { env } from './config/env';
+import { swaggerConfig } from './config/swagger';
+import swaggerUi from 'swagger-ui-express';
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ app.use(helmet());
 app.use(express.json());
 
 app.use('/', routes);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 app.use(errorHandler);
 
