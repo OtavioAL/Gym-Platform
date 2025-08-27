@@ -45,12 +45,24 @@ const AdminListUsersPage = () => {
           }}
         >
           <Heading size="lg">Usuários</Heading>
-          <HStack gap={4} justifyContent={'center'} alignItems={'flex-end'}>
+          <HStack
+            gap={4}
+            justifyContent={'center'}
+            alignItems={'flex-end'}
+            flexDir={{
+              base: 'column',
+              md: 'row',
+            }}
+          >
             {typeUser === 'admin' ? (
               <FormProvider {...methods}>
                 <BaseSelect
                   size="sm"
-                  maxW={'200px'}
+                  maxW={{
+                    md: '200px',
+                    lg: '200px',
+                    sm: 'full',
+                  }}
                   name="role"
                   label="Tipo de Usuário"
                   value={role}
@@ -78,12 +90,22 @@ const AdminListUsersPage = () => {
           </HStack>
         </HStack>
 
-        <Table variant="simple" size="sm" maxWidth={{ md: '90%', lg: '90%' }} m={'auto'}>
+        <Table
+          variant="simple"
+          size="sm"
+          maxWidth={{ md: '90%', lg: '90%' }}
+          m={'auto'}
+          overflowX={{ sm: 'auto' }}
+          minWidth={{
+            md: '800px',
+            lg: '800px',
+          }}
+        >
           <TableHeader
             columns={[
               { name: 'name', label: 'Nome' },
-              { name: 'username', label: 'Usuário' },
-              { name: 'role', label: 'Tipo' },
+              { name: 'username', label: 'Usuário', responsive: true },
+              { name: 'role', label: 'Tipo', responsive: true },
               { name: 'status', label: 'Status' },
               { name: 'actions', label: 'Ações' },
             ]}

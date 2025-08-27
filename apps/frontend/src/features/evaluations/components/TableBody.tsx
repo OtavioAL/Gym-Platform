@@ -98,14 +98,16 @@ export const TableBody = ({ evaluation, index, isDisabledActions = false }: Tabl
         }}
       >
         <Td>{evaluation?.student.name}</Td>
-        <Td>{evaluation?.evaluator?.name}</Td>
-        <Td>{evaluation?.height?.toFixed(2)} m</Td>
-        <Td>{evaluation?.weight?.toFixed(1)} kg</Td>
-        <Td>{evaluation?.bmi?.toFixed(1)}</Td>
+        <Td display={{ base: 'none', md: 'table-cell' }}>{evaluation?.evaluator?.name}</Td>
+        <Td display={{ base: 'none', md: 'table-cell' }}>{evaluation?.height?.toFixed(2)} m</Td>
+        <Td display={{ base: 'none', md: 'table-cell' }}>{evaluation?.weight?.toFixed(1)} kg</Td>
+        <Td display={{ base: 'none', md: 'table-cell' }}>{evaluation?.bmi?.toFixed(1)}</Td>
         <Td>
           {BMI_CLASSIFICATION[evaluation?.classification?.label as keyof typeof BMI_CLASSIFICATION]}
         </Td>
-        <Td>{dayjs(evaluation?.createdAt).format('DD/MM/YYYY')}</Td>
+        <Td display={{ base: 'none', md: 'table-cell' }}>
+          {dayjs(evaluation?.createdAt).format('DD/MM/YYYY')}
+        </Td>
         <Td>
           {isDisabledActions ? null : (
             <HStack>

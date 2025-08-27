@@ -13,7 +13,18 @@ const CreateEvaluationsPage = () => {
     <>
       <Header />
 
-      <VStack spacing={4} alignItems="flex-start" width={'100%'} m={'auto'} maxW={'600px'} my={8}>
+      <VStack
+        spacing={4}
+        alignItems="flex-start"
+        width={'100%'}
+        m={'auto'}
+        maxW={{
+          base: '90%',
+          md: '600px',
+        }}
+        my={8}
+        p={{ base: 2, md: 1 }}
+      >
         <Heading size="lg">Criar nova avaliação</Heading>
         <VStack spacing={4} alignItems="flex-start" width={'100%'} m={'auto'} maxW={'600px'} my={8}>
           <EvaluationForm

@@ -51,7 +51,15 @@ const ListEvaluationsPage = () => {
         >
           <Heading size="lg">Avaliações de IMC</Heading>
 
-          <HStack gap={4} justifyContent={'center'} alignItems={'flex-end'}>
+          <HStack
+            gap={4}
+            justifyContent={'center'}
+            alignItems={'flex-end'}
+            flexDir={{
+              base: 'column',
+              md: 'row',
+            }}
+          >
             <FormProvider {...methods}>
               <BaseSelect
                 name="userId"
@@ -76,12 +84,12 @@ const ListEvaluationsPage = () => {
           <TableHeader
             columns={[
               { name: 'student', label: 'Aluno' },
-              { name: 'evaluator', label: 'Avaliador' },
-              { name: 'height', label: 'Altura' },
-              { name: 'weight', label: 'Peso' },
-              { name: 'bmi', label: 'IMC' },
+              { name: 'evaluator', label: 'Avaliador', responsive: true },
+              { name: 'height', label: 'Altura', responsive: true },
+              { name: 'weight', label: 'Peso', responsive: true },
+              { name: 'bmi', label: 'IMC', responsive: true },
               { name: 'classification', label: 'Classificação' },
-              { name: 'createdAt', label: 'Data' },
+              { name: 'createdAt', label: 'Data', responsive: true },
               { name: 'actions', label: 'Ações' },
             ]}
           />
