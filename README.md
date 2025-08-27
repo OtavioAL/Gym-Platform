@@ -5,17 +5,13 @@ Este projeto é uma plataforma completa para **avaliações físicas e gestão d
 ## 📁 Estrutura do Projeto
 
 Este monorepo é dividido em dois principais workspaces:
-
-- apps/
-- 
-    ├─ backend/ ← API RESTful construída com Express, TypeORM e Swagger
-  
-    └─ frontend/ ← Aplicação web com Next.js, Chakra UI e React Query
-
+```
+apps/
+├─ backend/ ← API RESTful construída com Express, TypeORM e Swagger
+└─ frontend/ ← Aplicação web com Next.js, Chakra UI e React Query
 packages/
-
-  └─ shared/ ← Tipagens, validações e utilitários compartilhados
-
+└─ shared/ ← Tipagens, validações e utilitários compartilhados
+```
 ---
 
 ## 🚀 Tecnologias Utilizadas
@@ -37,7 +33,7 @@ packages/
 - **Chakra UI** para design system
 - **React Hook Form + Zod** para formulários
 - **TanStack Query (React Query)** para cache de dados
-- **AuthContext** com persistência em `localStorage`
+- **AuthContext** com persistência em Cookies
 - **Arquitetura baseada em features e páginas**
 
 ### Shared (`packages/shared`)
