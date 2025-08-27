@@ -1,7 +1,7 @@
 'use client';
 import { withAuthAdmin } from '@/hoc/withAuthAdmin';
 import { useEvaluations } from './hook';
-import { Button, Heading, HStack, Stack, Table, Tbody } from '@chakra-ui/react';
+import { Button, Heading, HStack, Stack, Table, Tbody, Td, Tr } from '@chakra-ui/react';
 import { Evaluation } from '@shared/types';
 import Header from '@/components/Header';
 import { MessageEmpty } from '@/components/feedbacks/MessageEmpty';
@@ -12,12 +12,19 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { BaseSelect } from '@/components/inputs/BaseSelect';
 import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 const ListEvaluationsPage = () => {
-  const { dataEvaluations, optionsListStudents, handleListEvaluations } = useEvaluations();
+  const {
+    dataEvaluations,
+    optionsListStudents,
+    handleListEvaluations,
+    studentId: studentIdSelected,
+  } = useEvaluations();
   const router = useRouter();
   const methods = useForm();
   const searchParams = useSearchParams();
+  const { user: currentUser } = useAuth();
 
   const studentId = searchParams.get('studentId');
 
@@ -49,6 +56,7 @@ const ListEvaluationsPage = () => {
               <BaseSelect
                 name="userId"
                 label="Aluno"
+                value={studentIdSelected}
                 onChange={(e) => handleListEvaluations({ studentId: e.target.value as string })}
                 options={optionsListStudents}
               />
@@ -58,7 +66,7 @@ const ListEvaluationsPage = () => {
               colorScheme="green"
               variant="solid"
               width={'300px'}
-              onClick={() => router.push(`/admin/users/evaluations/new`)}
+              onClick={() => router.push(`/${currentUser?.role}/users/evaluations/new`)}
             >
               <span>Nova avaliação</span>
             </Button>
@@ -78,18 +86,19 @@ const ListEvaluationsPage = () => {
             ]}
           />
           <Tbody>
-            {dataEvaluations?.length
-              ? dataEvaluations?.map((evaluation: Evaluation) => (
-                  <TableBody key={evaluation?.id} evaluation={evaluation} index={0} />
-                ))
-              : null}
+            {dataEvaluations?.length ? (
+              dataEvaluations?.map((evaluation: Evaluation) => (
+                <TableBody key={evaluation?.id} evaluation={evaluation} index={0} />
+              ))
+            ) : (
+              <Tr>
+                <Td colSpan={8}>
+                  <MessageEmpty message="Nenhuma avaliação encontrada." />
+                </Td>
+              </Tr>
+            )}
           </Tbody>
         </Table>
-        {dataEvaluations?.length === 0 ? (
-          <HStack width={{ md: '90%', lg: '90%' }} margin={'10px auto'}>
-            <MessageEmpty width="100%" message="Nenhuma avaliação encontrada." />
-          </HStack>
-        ) : null}
       </Stack>
     </>
   );
