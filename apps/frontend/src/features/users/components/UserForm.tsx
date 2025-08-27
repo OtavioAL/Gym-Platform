@@ -41,10 +41,26 @@ export const UserForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} style={{ width: '100%' }}>
         <VStack spacing={4} align="stretch">
-          <BaseInput register={methods.register} name="name" label="Nome" />
-          <BaseInput register={methods.register} name="username" label="Usuário" />
+          <BaseInput
+            error={methods.formState.errors.name}
+            register={methods.register}
+            name="name"
+            label="Nome"
+          />
+          <BaseInput
+            error={methods.formState.errors.username?.message}
+            register={methods.register}
+            name="username"
+            label="Usuário"
+          />
           {!isEdit ? (
-            <BaseInput register={methods.register} name="password" label="Senha" type="password" />
+            <BaseInput
+              error={methods.formState.errors.password?.message}
+              register={methods.register}
+              name="password"
+              label="Senha"
+              type="password"
+            />
           ) : null}
           <BaseSelect
             name="role"

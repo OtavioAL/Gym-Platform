@@ -48,9 +48,33 @@ export const EvaluationForm = ({
           <FormControl isInvalid={!!methods.formState.errors.height}>
             <FormLabel>Altura (m)</FormLabel>
             <Input
-              type="number"
-              step="0.01"
-              {...methods.register('height', { valueAsNumber: true })}
+              type="text"
+              inputMode="decimal"
+              placeholder="1.78"
+              {...methods.register('height', {
+                setValueAs: (v) => {
+                  if (v === '' || v == null) return undefined;
+                  const raw = String(v).replace(',', '.').trim();
+                  let n = parseFloat(raw);
+                  if (Number.isNaN(n)) return undefined;
+
+                  if (n > 3) n = n / 100;
+
+                  return Number(n.toFixed(2));
+                },
+              })}
+              onBlur={(e) => {
+                const raw = e.target.value.replace(',', '.').trim();
+                let n = parseFloat(raw);
+                if (!Number.isNaN(n)) {
+                  if (n > 3) n = n / 100;
+                  e.target.value = n.toFixed(2);
+                  methods.setValue('height', Number(n.toFixed(2)), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
+                }
+              }}
             />
             <FormErrorMessage>{methods.formState.errors.height?.message}</FormErrorMessage>
           </FormControl>
