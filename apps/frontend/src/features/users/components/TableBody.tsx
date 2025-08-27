@@ -49,7 +49,9 @@ export const TableBody = ({ user, index }: TableBodyProps) => {
             role: user?.role,
           }}
           onClose={() => handleCloseModal()}
-          onSubmit={(formData) => handleUpdateUser({ ...formData, id: user?.id as string })}
+          onSubmit={(formData) => {
+            handleUpdateUser({ ...formData, id: user?.id as string });
+          }}
           isSubmitting={false}
         />
       );
