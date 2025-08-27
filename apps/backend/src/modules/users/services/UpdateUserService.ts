@@ -13,13 +13,14 @@ export class UpdateUserService {
     if (currentUserRole === UserRole.TRAINER && data?.role && data?.role !== UserRole.STUDENT) {
       throw new AppError(UNAUTHORIZED, 403);
     }
-    const { username, password, role, status } = data;
+    const { username, password, role, status, name } = data;
 
     const user = await this.usersRepo.findById(id);
     if (!user) throw new AppError(USER_NOT_FOUND, 404);
 
     if (username) user.username = username;
     if (role) user.role = UserRole[role.toUpperCase() as keyof typeof UserRole];
+    if (name) user.name = name;
 
     if (status) user.status = UserStatus[status.toUpperCase() as keyof typeof UserStatus];
     if (password) user.password = await bcrypt.hash(password, 10);
