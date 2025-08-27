@@ -1,11 +1,24 @@
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import { NextRequest, NextResponse } from 'next/server';
 
-export default createMiddleware(routing);
+export function middleware(req: NextRequest) {
+  const url = req.nextUrl;
+  const isPublic = ['/login', '/'].includes(url.pathname);
+  const token = req.cookies.get('access_token')?.value;
+  const role = req.cookies.get('user_role')?.value;
+
+  if (!isPublic && !token) {
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
+  }
+
+  if (role === 'student' && url.pathname.startsWith('/users')) {
+    url.pathname = '/dashboard';
+    return NextResponse.redirect(url);
+  }
+
+  return NextResponse.next();
+}
 
 export const config = {
-  // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-  // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };
