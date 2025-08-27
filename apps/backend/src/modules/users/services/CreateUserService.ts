@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { UserRole, UserStatus } from '../enums';
 import { AppError } from '../../../shared/errors/AppError';
 import { UNAUTHORIZED, USER_ALREADY_EXISTS } from '../../../shared/errors/error.messages';
+import { UserMapper } from '../mappers/UserMapper';
 
 export class CreateUserService {
   constructor(private usersRepo: IUsersRepository) {}
@@ -25,14 +26,6 @@ export class CreateUserService {
       status: UserStatus.ACTIVE,
     });
 
-    return {
-      name: userCreated.name,
-      email: userCreated.username,
-      role: UserRole[userCreated.role.toUpperCase() as keyof typeof UserRole],
-      status: UserStatus.ACTIVE,
-      id: userCreated.id,
-      created_at: userCreated.created_at,
-      updated_at: userCreated.updated_at,
-    };
+    return UserMapper.toDTO(userCreated);
   }
 }
