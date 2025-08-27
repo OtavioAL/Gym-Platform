@@ -1,0 +1,17 @@
+export const HEIGHT_GREATER_THAN_ZERO = 'Height must be greater than zero.';
+export const WEIGHT_GREATER_THAN_ZERO = 'Weight cannot be negative.';
+export const UNAUTHORIZED = 'unauthorized';
+export const USER_NOT_FOUND = 'User not found';
+export const USER_HAS_LINKED_REVIES = 'User has linked reviews';
+export const INVALID_CREDENTIALS = 'Invalid credentials';
+export const INACTIVE_USER = 'Inactive user';
+export const EXPIRED_REFRESH_TOKEN = 'Expired refresh token';
+export const INVALID_REFRESH_TOKEN = 'Invalid refresh token';
+export const STUDENT_CANNOT_REGISTER_EVALUATION = 'Student cannot register evaluation';
+export const INVALID_USER_TYPE = 'Invalid user type';
+export const INACTIVE_STUDENT = 'Inactive student cannot receive evaluation';
+export const EVALUATION_NOT_FOUND = 'Evaluation not found';
+export const USER_ALREADY_EXISTS = 'User already exists';
+export const INTERNAL_SERVER_ERROR = 'Internal server error';
+export const VALIDATION_ERROR = 'Validation error';
+export const INVALID_TOKEN = 'Invalid token';
