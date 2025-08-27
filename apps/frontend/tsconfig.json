@@ -7,6 +7,17 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "moduleResolution": "bundler",
+    // "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    // "types": ["vite/client", "node"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["../../packages/shared/src/*"]
+    },
     "plugins": [
       {
         "name": "next"
