@@ -17,7 +17,7 @@ const AdminDashboardPage = () => {
       <DashboardCard
         title="Relatórios"
         desc="Acompanhe o desempenho dos alunos."
-        link="/admin/users"
+        link="/admin/users/evaluations"
       />
     </SimpleGrid>
   );
