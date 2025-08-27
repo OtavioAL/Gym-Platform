@@ -9,11 +9,7 @@ export class GetMeService {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(userId: string): Promise<UserDTO> {
-    console.log({ userId });
-
     const user = await this.usersRepository.findById(userId);
-
-    console.log({ user });
 
     if (!user) {
       throw new AppError(USER_NOT_FOUND, 404);
