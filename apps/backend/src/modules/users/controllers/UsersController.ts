@@ -8,6 +8,9 @@ import { createUserSchema } from '@shared/validations/create-user';
 import { UsersRepository } from '../repositories/implementations/UsersRepository';
 import { updateUserSchema } from '@shared/validations/update-user';
 import { UserRole } from '../enums';
+import { GetMeService } from '../services/GetMeService';
+import { ListUsersService } from '../services/ListUsersService';
+import { GetUserService } from '../services/GetUserService';
 
 export class UsersController {
   async create(req: Request, res: Response) {
@@ -54,5 +57,32 @@ export class UsersController {
     );
 
     return res.status(204).send();
+  }
+
+  async me(req: Request, res: Response) {
+    const current = req.user;
+
+    const out = await new GetMeService(new UsersRepository()).execute(current?.id as string);
+
+    return res.json(out);
+  }
+
+  async list(req: Request, res: Response) {
+    const out = await new ListUsersService(new UsersRepository()).execute({
+      username: req.query.username as string,
+      role: req.query.role as UserRole,
+    });
+
+    return res.json(out);
+  }
+
+  async get(req: Request, res: Response) {
+    const current = req.user;
+    const out = await new GetUserService(new UsersRepository()).execute(
+      req.params.id,
+      current?.role as UserRole,
+    );
+
+    return res.json(out);
   }
 }
