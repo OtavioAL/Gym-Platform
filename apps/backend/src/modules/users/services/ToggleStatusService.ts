@@ -7,7 +7,8 @@ import { UserMapper } from '../mappers/UserMapper';
 export class ToggleStatusService {
   constructor(private usersRepo: IUsersRepository) {}
   async execute(id: string, currentUserRole: UserRole) {
-    if (currentUserRole !== UserRole.ADMIN) throw new AppError(UNAUTHORIZED, 403);
+    if (currentUserRole !== UserRole.ADMIN && currentUserRole !== UserRole.TRAINER)
+      throw new AppError(UNAUTHORIZED, 403);
     const user = await this.usersRepo.findById(id);
 
     if (!user) throw new AppError(USER_NOT_FOUND, 404);
