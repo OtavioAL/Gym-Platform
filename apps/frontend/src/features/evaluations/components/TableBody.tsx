@@ -11,9 +11,10 @@ import { BaseModal } from '@/components/modals/BaseModal';
 interface TableBodyProps {
   evaluation: Evaluation;
   index: number;
+  isDisabledActions?: boolean;
 }
 
-export const TableBody = ({ evaluation, index }: TableBodyProps) => {
+export const TableBody = ({ evaluation, index, isDisabledActions = false }: TableBodyProps) => {
   const { handleDeleteEvaluation, handleEditEvaluation } = useEvaluations();
   const { user: currentUser } = useAuth();
   const [isShowModal, setIsShowModal] = useState({
@@ -106,28 +107,30 @@ export const TableBody = ({ evaluation, index }: TableBodyProps) => {
         </Td>
         <Td>{dayjs(evaluation?.createdAt).format('DD/MM/YYYY')}</Td>
         <Td>
-          <HStack>
-            <Tooltip label="Editar">
-              <IconButton
-                aria-label="Edit"
-                size="sm"
-                onClick={() => setIsShowModal({ ...isShowModal, edit: true })}
-              >
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            {currentUser?.role === UserRole?.ADMIN ? (
-              <Tooltip label="Excluir">
+          {isDisabledActions ? null : (
+            <HStack>
+              <Tooltip label="Editar">
                 <IconButton
-                  aria-label="Delete"
+                  aria-label="Edit"
                   size="sm"
-                  onClick={() => setIsShowModal({ ...isShowModal, delete: true })}
+                  onClick={() => setIsShowModal({ ...isShowModal, edit: true })}
                 >
-                  <DeleteIcon />
+                  <EditIcon />
                 </IconButton>
               </Tooltip>
-            ) : null}
-          </HStack>
+              {currentUser?.role === UserRole?.ADMIN ? (
+                <Tooltip label="Excluir">
+                  <IconButton
+                    aria-label="Delete"
+                    size="sm"
+                    onClick={() => setIsShowModal({ ...isShowModal, delete: true })}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : null}
+            </HStack>
+          )}
         </Td>
       </Tr>
     </>
