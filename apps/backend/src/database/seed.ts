@@ -68,5 +68,5 @@ async function seed() {
 }
 
 seed().catch((err) => {
-  console.error('❌ Erro ao rodar seed:', err);
+  console.error('Erro ao rodar seed:', err);
 });
