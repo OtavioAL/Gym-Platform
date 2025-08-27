@@ -9,6 +9,7 @@ import { UsersRepository } from '../../users/repositories/implementations/UsersR
 import { updateEvalSchema } from '@shared/validations/update-evaluations';
 import { BmiClassificationRepository } from '../repositories/implementations/BmiClassificationRepository';
 import { DeleteEvaluationService } from '../services/DeleteEvaluationService';
+import { MeEvaluationsService } from '../services/MeEvaluationService';
 
 export class EvaluationsController {
   async create(req: Request, res: Response) {
@@ -56,5 +57,16 @@ export class EvaluationsController {
     );
 
     return res.status(204).send();
+  }
+
+  async me(req: Request, res: Response) {
+    const current = (req as any).user;
+
+    const out = await new MeEvaluationsService(new BmiAssessmentRepository()).execute({
+      studentId: current.id,
+      currentRole: current.role,
+    });
+
+    return res.json(out);
   }
 }
