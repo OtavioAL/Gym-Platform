@@ -6,11 +6,11 @@ import { useFormContext } from 'react-hook-form';
 type BaseInputProps = {
   name: string;
   label: string;
+  register: any;
 } & InputProps;
 
-export const BaseInput = ({ name, label, ...rest }: BaseInputProps) => {
+export const BaseInput = ({ name, label, register, ...rest }: BaseInputProps) => {
   const {
-    register,
     formState: { errors },
   } = useFormContext();
 
