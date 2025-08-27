@@ -2,6 +2,7 @@ import { IUsersRepository } from '../repositories/IUsersRepository';
 import { AppError } from '../../../shared/errors/AppError';
 import { UserRole, UserStatus } from '../enums';
 import { UNAUTHORIZED, USER_NOT_FOUND } from '../../../shared/errors/error.messages';
+import { UserMapper } from '../mappers/UserMapper';
 
 export class ToggleStatusService {
   constructor(private usersRepo: IUsersRepository) {}
@@ -13,6 +14,8 @@ export class ToggleStatusService {
 
     user.status = user.status === UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE;
 
-    return this.usersRepo.save(user);
+    const userUpdated = await this.usersRepo.save(user);
+
+    return UserMapper.toDTO(userUpdated);
   }
 }
