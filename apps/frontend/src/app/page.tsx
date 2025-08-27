@@ -1,9 +1,9 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+
+const Login = dynamic(() => import('@/features/auth/index'));
+
 export default function Home() {
-  return (
-    <main className="p-8 text-center">
-      <h1 className="text-4xl font-bold text-blue-600">Bem vindo</h1>
-    </main>
-  );
+  return <Login />;
 }
