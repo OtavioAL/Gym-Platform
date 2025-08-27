@@ -10,10 +10,11 @@ export class BmiAssessmentRepository implements IBmiAssessmentRepository {
     this.repository = AppDataSource.getRepository(BmiAssessment);
   }
 
-  async findAll(): Promise<BmiAssessment[]> {
+  async findAll(studentId?: string, evaluatorId?: string): Promise<BmiAssessment[]> {
     return this.repository.find({
       relations: ['classification', 'evaluator', 'student'],
       order: { createdAt: 'DESC' },
+      where: [{ student: { id: studentId } }, { evaluator: { id: evaluatorId } }],
     });
   }
 
