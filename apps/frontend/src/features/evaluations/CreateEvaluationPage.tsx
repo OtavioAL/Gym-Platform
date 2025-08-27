@@ -18,7 +18,6 @@ const CreateEvaluationsPage = () => {
         <VStack spacing={4} alignItems="flex-start" width={'100%'} m={'auto'} maxW={'600px'} my={8}>
           <EvaluationForm
             onSubmit={(data) => {
-              console.log('dara', data);
               handleCreateEvaluations(data as CreateEvalInput);
             }}
             isSubmitting={isLoadingCreateEvaluations}
