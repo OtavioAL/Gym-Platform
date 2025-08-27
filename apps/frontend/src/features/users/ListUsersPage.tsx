@@ -11,10 +11,12 @@ import { TableHeader } from './components/TableHeader';
 import { UserDTO } from '@shared/types';
 import { TableBody } from './components/TableBody';
 import { MessageEmpty } from '@/components/feedbacks/MessageEmpty';
+import { useAuth } from '@/context/AuthContext';
 
 const AdminListUsersPage = () => {
   const methods = useForm();
   const router = useRouter();
+  const { user: currentUser } = useAuth();
   const { dataListUsers, handleFilter, role } = useUsers();
   const [typeUser, setTypeUser] = useState<'trainer' | 'admin'>();
 
@@ -22,7 +24,7 @@ const AdminListUsersPage = () => {
     if (typeof window !== 'undefined') {
       const typeUser = window.location.pathname.split('/')[1];
       setTypeUser(typeUser as 'trainer' | 'admin');
-      handleFilter('trainer');
+      handleFilter(typeUser === 'trainer' ? 'student' : 'trainer');
     }
   }, []);
 
@@ -66,7 +68,9 @@ const AdminListUsersPage = () => {
               variant="solid"
               width={'300px'}
               onClick={() =>
-                router.push(`/admin/users/new?role=${role === 'student' ? 'student' : 'trainer'}`)
+                router.push(
+                  `/${currentUser?.role}/users/new?role=${role === 'student' ? 'student' : 'trainer'}`,
+                )
               }
             >
               <span>Cadastrar {role === 'student' ? 'aluno' : 'professor'}</span>
