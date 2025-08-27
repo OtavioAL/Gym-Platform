@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { UserRole, UserStatus } from '../enums';
 import { AppError } from '../../../shared/errors/AppError';
 import { UNAUTHORIZED, USER_NOT_FOUND } from '../../../shared/errors/error.messages';
+import { UserMapper } from '../mappers/UserMapper';
 
 export class UpdateUserService {
   constructor(private usersRepo: IUsersRepository) {}
@@ -23,6 +24,8 @@ export class UpdateUserService {
     if (status) user.status = UserStatus[status.toUpperCase() as keyof typeof UserStatus];
     if (password) user.password = await bcrypt.hash(password, 10);
 
-    return this.usersRepo.save(user);
+    const userUpdated = await this.usersRepo.save(user);
+
+    return UserMapper.toDTO(userUpdated);
   }
 }
