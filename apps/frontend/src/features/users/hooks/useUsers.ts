@@ -94,7 +94,7 @@ export function useUsers() {
     });
   };
 
-  const handleCreateUser = ({ name, username, password }: CreateUserInput) => {
+  const handleCreateUser = ({ name, username, password, role }: CreateUserInput) => {
     mutateCreateUser({ name, username, password, role });
   };
 
@@ -102,8 +102,14 @@ export function useUsers() {
     mutateToggleStatus(id);
   };
 
-  const handleUpdateUser = ({ username, password, role, id }: UpdateUserInput & { id: string }) => {
-    mutateEditUser({ username, password, role, id });
+  const handleUpdateUser = ({
+    username,
+    password,
+    role,
+    id,
+    name,
+  }: UpdateUserInput & { id: string }) => {
+    mutateEditUser({ username, password, role, id, name });
   };
 
   const handleDeleteUser = (id: string) => {
