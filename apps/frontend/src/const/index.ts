@@ -5,6 +5,7 @@ export const REACT_QUERY_KEYS = {
   screens: {
     evaluations: {
       list: 'listEvaluations',
+      me: 'meEvaluations',
     },
     users: {
       list: 'listUsers',
