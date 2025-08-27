@@ -11,6 +11,7 @@ import {
 } from '../../../../../../packages/shared/src/validations/create-user';
 import { useEffect } from 'react';
 import { UpdateUserInput, updateUserSchema } from '@shared/validations/update-user';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
   defaultValues?: Partial<CreateUserInput | UpdateUserInput>;
@@ -36,19 +37,15 @@ export const UserForm = ({
     defaultValues,
   });
 
-  useEffect(() => {
-    if (defaultValues) {
-      methods.reset(defaultValues);
-    }
-  }, [defaultValues]);
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} style={{ width: '100%' }}>
         <VStack spacing={4} align="stretch">
-          <BaseInput name="name" label="Nome" />
-          <BaseInput name="username" label="Usuário" />
-          {!isEdit ? <BaseInput name="password" label="Senha" type="password" /> : null}
+          <BaseInput register={methods.register} name="name" label="Nome" />
+          <BaseInput register={methods.register} name="username" label="Usuário" />
+          {!isEdit ? (
+            <BaseInput register={methods.register} name="password" label="Senha" type="password" />
+          ) : null}
           <BaseSelect
             name="role"
             label="Tipo de Usuário"
