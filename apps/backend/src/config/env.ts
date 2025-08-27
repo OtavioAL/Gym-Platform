@@ -10,6 +10,7 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string().min(16),
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
   DB_PATH: z.string().default('db.sqlite'),
+  FRONTEND_URL: z.string().default('http://localhost:3000'),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
