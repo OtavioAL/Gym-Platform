@@ -1,3 +1,4 @@
+import { UserRole } from '@shared/types';
 import { User } from '../entities/User';
 
 export interface IUsersRepository {
@@ -7,4 +8,5 @@ export interface IUsersRepository {
   findByUsername(username: string): Promise<User | null>;
   hasEvaluations(id: string): Promise<boolean>;
   delete(id: string): Promise<void>;
+  findAll(username?: string, role?: UserRole): Promise<User[]>;
 }
