@@ -100,8 +100,10 @@ export const TableBody = ({ user, index }: TableBodyProps) => {
           }}
         >
           <Td>{user?.name}</Td>
-          <Td>{user?.username}</Td>
-          <Td>{USER_ROLE[user?.role.toUpperCase() as keyof typeof USER_ROLE]}</Td>
+          <Td display={{ base: 'none', md: 'table-cell' }}>{user?.username}</Td>
+          <Td display={{ base: 'none', md: 'table-cell' }}>
+            {USER_ROLE[user?.role.toUpperCase() as keyof typeof USER_ROLE]}
+          </Td>
           <Td>
             <HStack>
               <BaseToggle

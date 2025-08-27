@@ -15,7 +15,21 @@ const AdminCreateUsersPage = () => {
     <>
       <Header />
 
-      <VStack spacing={4} alignItems="flex-start" width={'100%'} m={'auto'} maxW={'600px'} my={8}>
+      <VStack
+        spacing={4}
+        alignItems="flex-start"
+        width={'100%'}
+        m={'auto'}
+        maxW={{
+          base: '90%',
+          md: '600px',
+        }}
+        p={{
+          base: 2,
+          md: 1,
+        }}
+        my={8}
+      >
         <Heading size="lg">Criar um novo {role === 'student' ? 'aluno' : 'professor'}</Heading>
         <VStack spacing={4} alignItems="flex-start" width={'100%'} m={'auto'} maxW={'600px'} my={8}>
           <UserForm
