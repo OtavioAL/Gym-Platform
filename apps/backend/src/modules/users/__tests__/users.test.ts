@@ -5,6 +5,7 @@ import { CreateUserService } from '../services/CreateUserService';
 import { DeleteUserService } from '../services/DeleteUserService';
 import { ToggleStatusService } from '../services/ToggleStatusService';
 import { UpdateUserService } from '../services/UpdateUserService';
+import { GetMeService } from '../services/GetMeService';
 
 vi.mock('bcryptjs', async () => {
   const actual = await vi.importActual<typeof import('bcryptjs')>('bcryptjs');
@@ -53,7 +54,7 @@ describe('User Services', () => {
       );
 
       expect(usersRepo.create).toHaveBeenCalled();
-      expect(result.email).toBe('john@example.com');
+      expect(result.username).toBe('john@example.com');
     });
 
     it('should throw if user already exists', async () => {
@@ -149,6 +150,16 @@ describe('User Services', () => {
       await expect(
         service.execute('user-1', { username: 'updated@example.com' }, UserRole.STUDENT),
       ).rejects.toThrow(AppError);
+    });
+  });
+
+  describe('GetMeService', () => {
+    it('should get user successfully', async () => {
+      usersRepo.findById.mockResolvedValue(fakeUser);
+      const service = new GetMeService(usersRepo);
+      const result = await service.execute('user-1');
+
+      expect(result.username).toBe('john@example.com');
     });
   });
 });
