@@ -20,8 +20,11 @@ userRoutes.put(
   ensureRole(UserRole.ADMIN, UserRole.TRAINER),
   (req, res) => userController.update(req, res),
 );
-userRoutes.patch('/:id/status', ensureAuthenticated, ensureRole(UserRole.ADMIN), (req, res) =>
-  userController.toggle(req, res),
+userRoutes.patch(
+  '/:id/status',
+  ensureAuthenticated,
+  ensureRole(UserRole.ADMIN, UserRole.TRAINER),
+  (req, res) => userController.toggle(req, res),
 );
 userRoutes.delete('/:id', ensureAuthenticated, ensureRole(UserRole.ADMIN), (req, res) =>
   userController.remove(req, res),
