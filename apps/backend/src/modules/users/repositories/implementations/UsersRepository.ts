@@ -3,6 +3,7 @@ import { IUsersRepository } from '../IUsersRepository';
 import { User } from '../../entities/User';
 import AppDataSource from '../../../../database/data-source';
 import { BmiAssessment } from '../../../evaluations/entities/BmiAssessment';
+import { UserRole } from '@shared/types';
 
 export class UsersRepository implements IUsersRepository {
   private orm: Repository<User>;
@@ -36,5 +37,8 @@ export class UsersRepository implements IUsersRepository {
   }
   async delete(id: string) {
     await this.orm.delete(id);
+  }
+  async findAll(username?: string, role?: UserRole): Promise<User[]> {
+    return this.orm.find({ where: { username, role } });
   }
 }
